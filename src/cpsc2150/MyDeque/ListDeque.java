@@ -1,10 +1,16 @@
 package cpsc2150.MyDeque;
 
 import java.util.*;
-public class ListDeque implements IDeque {
+/**
+ * @Invariants DATATYPE.length >= 0 AND DATATYPE.length <= MAX_LENGTH
+ * @Correspondance DATATYPE.length = myQ.size();
+ *                 DATATYPE = myQ[0..myLength-1];
+ */
+
+public class ListDeque<T> extends AbsDeque<T> {
     // this time store the deque in a list
 // myQ.get(0) is the front of the deque
-    private List<Character> myQ;
+    private List<T> myQ;
 
     public ListDeque() {
         myQ = new ArrayList<>();
@@ -12,13 +18,13 @@ public class ListDeque implements IDeque {
 
 
     @Override
-    public void enqueue(Character x) {
-        myQ.add(x);
+    public void enqueue(T x) {
+        myQ.add((T)x);
     }
 
     @Override
-    public Character dequeue() {
-        Character hold = myQ.get(0);
+    public T dequeue() {
+        T hold = myQ.get(0);
         for (int i = 0; i < myQ.size()-1; i++) {
             myQ.set(i,myQ.get(i+1));
         }
@@ -27,7 +33,7 @@ public class ListDeque implements IDeque {
     }
 
     @Override
-    public void inject(Character x) {
+    public void inject(T x) {
         myQ.add(x);
         for (int i = myQ.size()-1; i > 0; i--) {
             myQ.set(i,myQ.get(i-1));
@@ -37,7 +43,7 @@ public class ListDeque implements IDeque {
     }
 
     @Override
-    public Character removeLast() {
+    public T removeLast() {
         return myQ.remove(myQ.size()-1);
     }
 
@@ -48,9 +54,7 @@ public class ListDeque implements IDeque {
 
     @Override
     public void clear() {
-        for (int i = 0; i < myQ.size(); i++) {
-            removeLast();
-        }
+        myQ.clear();
     }
 
 // complete the class

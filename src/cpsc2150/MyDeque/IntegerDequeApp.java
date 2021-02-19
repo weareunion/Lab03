@@ -3,47 +3,27 @@ package cpsc2150.MyDeque;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class DequeApp {
+public class IntegerDequeApp {
     public static void main(String[] args) {
         IDeque q = null;
-
-        // Mode: i - Integer; c - Character
-        char mode = 'i';
-
-        if (args.length == 0){
-            System.out.println("Mode not specified. Running in default mode...");
-        }else{
-            switch (args[0]){
-                case "char":
-                    System.out.println("Character mode set.");
-                    mode = 'c';
-                    break;
-                case "int":
-                    System.out.println("Integer mode set.");
-                    break;
-                default:
-                    System.out.println("Mode not specified. Running in default mode...");
-                    break;
-            }
-        }
 
         System.out.println("Do you want to use an array (A) or list (L)?\n");
 
 
         boolean invalid_in = true;
 
-        while (invalid_in){
+        while (invalid_in) {
             Scanner s = new Scanner(System.in);
-            char in = s.next().charAt(0);
-            switch (in){
+            int in = s.nextInt();
+            switch (in) {
                 case 'A':
                 case 'a':
-                    q = (mode == 'i' ? new ArrayDeque<Integer>() : new ArrayDeque<Character>());
+                    q = new ArrayDeque();
                     invalid_in = false;
                     break;
                 case 'L':
                 case 'l':
-                    q = (mode == 'i' ? new ListDeque<Integer>() : new ListDeque<Character>());
+                    q = new ListDeque();
                     invalid_in = false;
                     break;
                 default:
@@ -52,29 +32,28 @@ public class DequeApp {
             }
 
 
-
             boolean finished = false;
-            while(!finished){
+            while (!finished) {
                 System.out.println("What would you like to do?\n 1.) Add to the end of the deque.\n 2.) Add to the front of the deque.\n 3.) Remove from the front.\n 4.) Remove from the end of the Deque.\n 5.) Peek at the front of the Deque.\n 6.) Peek at the end of the Deque.\n 7.) Insert into a position in the deque. \n 8.) Remove a value from any position in the deque and return it.\n 9.) Peek at a value in any position in the deque.\n 10.) Returns the length of the deque.\n 11.) Clears the deque.\n 12.) Exit.\n");
                 Scanner input = new Scanner(System.in);
-                Character output;
+                int output;
                 int val = input.nextInt();
                 switch (val) {
                     case 1:
                         System.out.println("What would you like to insert?");
                         assert q != null;
 
-                        q.enqueue(s.next().charAt(0));
+                        q.enqueue(s.nextInt());
                         stringItUp(q);
                         break;
                     case 2:
                         System.out.println("What would you like to insert?");
-                        q.inject(s.next().charAt(0));
+                        q.inject(s.nextInt());
                         stringItUp(q);
 
                         break;
                     case 3:
-                        if (q.length() <= 0){
+                        if (q.length() <= 0) {
                             System.out.println("The list is empty.");
                             break;
                         }
@@ -82,7 +61,7 @@ public class DequeApp {
                         stringItUp(q);
                         break;
                     case 4:
-                        if (q.length() <= 0){
+                        if (q.length() <= 0) {
                             System.out.println("The list is empty.");
                             break;
                         }
@@ -90,14 +69,14 @@ public class DequeApp {
                         stringItUp(q);
                         break;
                     case 5:
-                        if (q.length() <= 0){
+                        if (q.length() <= 0) {
                             System.out.println("The list is empty.");
                             break;
                         }
                         System.out.println(q.peek());
                         break;
                     case 6:
-                        if (q.length() <= 0){
+                        if (q.length() <= 0) {
                             System.out.println("The list is empty.");
                             break;
                         }
@@ -107,7 +86,7 @@ public class DequeApp {
 
                         System.out.println("What would you like to insert?");
 
-                        output = s.next().charAt(0);
+                        output = s.nextInt();
                         System.out.println("What position would you like to insert at?");
                         int index = s.nextInt();
                         /*int index = 0;
@@ -124,7 +103,7 @@ public class DequeApp {
                         stringItUp(q);
                         break;
                     case 8:
-                        if (q.length() <= 0){
+                        if (q.length() <= 0) {
                             System.out.println("The list is empty.");
                             break;
                         }
@@ -133,17 +112,17 @@ public class DequeApp {
                         while (true) {
 
                             index = s.nextInt();
-                            if ((index >= 0 && index <= q.length())){
+                            if ((index >= 0 && index <= q.length())) {
                                 break;
                             }
 
                             System.out.println("Invalid input. Must be an integer and in range of 0 to " + (q.length()));
                         }
-                        System.out.println(q.remove(index-1));
+                        System.out.println(q.remove(index - 1));
                         stringItUp(q);
                         break;
                     case 9:
-                        if (q.length() <= 0){
+                        if (q.length() <= 0) {
                             System.out.println("The list is empty.");
                             break;
                         }
@@ -152,13 +131,13 @@ public class DequeApp {
                         while (true) {
 
                             index = s.nextInt();
-                            if ((index >= 0 && index <= q.length())){
+                            if ((index >= 0 && index <= q.length())) {
                                 break;
                             }
 
                             System.out.println("Invalid input. Must be an integer and in range of 1 to " + (q.length()));
                         }
-                        System.out.println(q.get(index-1));
+                        System.out.println(q.get(index - 1));
                         break;
                     case 10:
                         System.out.println(q.length());
@@ -168,15 +147,14 @@ public class DequeApp {
                         stringItUp(q);
                         break;
                     case 12:
-                        finished=true;
+                        finished = true;
                         break;
 
                 }
             }
         }
     }
-
-    private static void stringItUp(IDeque q) {
+    private static void stringItUp (IDeque q){
         String output;
         output = q.toString();
         System.out.println(output);
